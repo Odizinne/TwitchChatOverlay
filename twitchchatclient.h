@@ -32,6 +32,7 @@ signals:
     void connectedChanged();
     void currentChannelChanged();
     void connectionError(const QString& error);
+    void aboutToQuit();
 
 private slots:
     void onSocketConnected();

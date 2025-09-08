@@ -1,6 +1,7 @@
 #include "twitchchatclient.h"
 #include <QDebug>
 #include <QRegularExpression>
+#include <QCoreApplication>
 
 TwitchChatClient* TwitchChatClient::s_instance = nullptr;
 
@@ -36,6 +37,10 @@ TwitchChatClient::TwitchChatClient(QObject* parent)
 
     m_pingTimer->setInterval(60000); // Ping every minute
     connect(m_pingTimer, &QTimer::timeout, this, &TwitchChatClient::sendPing);
+
+    connect(qApp, &QCoreApplication::aboutToQuit, this, [this]() {
+        emit aboutToQuit();
+    });
 }
 
 bool TwitchChatClient::isConnected() const

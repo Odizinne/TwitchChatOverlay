@@ -21,7 +21,7 @@ Rectangle {
     opacity: 0
 
     Universal.theme: Universal.Dark
-    Universal.accent: Universal.Purple
+    Universal.accent: Universal.Indigo
 
     function showWindow() {
         visible = true

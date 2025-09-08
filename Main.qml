@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls.Universal
 import QtQuick.Layouts
@@ -12,13 +14,19 @@ ApplicationWindow {
     flags: Qt.WindowStaysOnTopHint |
            Qt.FramelessWindowHint
 
-    //visibility: Window.FullScreen
     color: "transparent"
 
     Universal.theme: Universal.Dark
-    Universal.accent: Universal.Purple
+    Universal.accent: Universal.Indigo
 
     Component.onCompleted: {
+        Qt.application.aboutToQuit.connect(function() {
+            UserSettings.windowWidth = chatWindow.width
+            UserSettings.windowHeight = chatWindow.height
+            UserSettings.windowY = chatWindow.y
+            UserSettings.windowX = chatWindow.x
+        })
+
         if (UserSettings.channelName !== "" && UserSettings.token !== "") {
             TwitchChatClient.connectToChannel(UserSettings.channelName, UserSettings.token)
         }
@@ -64,9 +72,9 @@ ApplicationWindow {
         target: ShortcutManager
         function onToggleOverlay() {
             if (mainWindow.visible) {
-                hideOverlay()
+                mainWindow.hideOverlay()
             } else {
-                showOverlay()
+                mainWindow.showOverlay()
             }
         }
     }
@@ -112,11 +120,11 @@ ApplicationWindow {
     // Chat Window using CustomWindow
     CustomWindow {
         id: chatWindow
-        width: 400
-        height: 600
-        x: 0
-        y: 0
-        visible: true // Chat window is always visible
+        width: UserSettings.windowWidth
+        height: UserSettings.windowHeight
+        x: UserSettings.windowX
+        y: UserSettings.windowY
+        visible: true
         closeEnabled: false
         Component.onCompleted: showWindow()
 
@@ -141,15 +149,17 @@ ApplicationWindow {
                 spacing: 2
 
                 delegate: Rectangle {
+                    id: messageDel
                     width: chatView.width
                     height: messageText.implicitHeight + 10
                     color: "transparent"
+                    required property var model
 
                     Text {
                         id: messageText
                         anchors.fill: parent
                         anchors.margins: 5
-                        text: "<font color='" + model.color + "'><b>" + model.username + ":</b></font> " + model.message
+                        text: "<font color='" + messageDel.model.color + "'><b>" + messageDel.model.username + ":</b></font> " + messageDel.model.message
                         color: "white"
                         font.pixelSize: 15
                         wrapMode: Text.WordWrap
@@ -161,7 +171,8 @@ ApplicationWindow {
                     if (count > 100) {
                         chatModel.remove(0, count - 100)
                     }
-                    positionViewAtEnd()
+                    // Delay scroll to next frame so ListView can update its contentHeight
+                    Qt.callLater(positionViewAtEnd)
                 }
             }
         }
