@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Odizinne");
     app.setApplicationName("TwitchChatOverlay");
+    app.setQuitOnLastWindowClosed(false);
     QQmlApplicationEngine engine;
     QObject::connect(
         &engine,
