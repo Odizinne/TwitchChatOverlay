@@ -49,14 +49,16 @@ CustomWindow {
                     Layout.fillWidth: true
                     placeholderText: "Paste your OAuth token here (oauth:xxxxx)"
                     echoMode: TextInput.Password
-                    text: ""
+                    text: UserSettings.token
+                    onTextChanged: UserSettings.token = text
                 }
 
                 TextField {
                     id: channelField
                     Layout.fillWidth: true
                     placeholderText: "Channel name (without #)"
-                    text: ""
+                    text: UserSettings.channelName
+                    onTextChanged: UserSettings.channelName = text
                 }
             }
         }

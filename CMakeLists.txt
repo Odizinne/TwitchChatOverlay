@@ -12,6 +12,14 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     main.cpp
 )
 
+set(QML_SINGLETONS
+    UserSettings.qml
+)
+
+set_source_files_properties(${QML_SINGLETONS}
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE
+)
+
 qt_add_qml_module(${CMAKE_PROJECT_NAME}
     URI Odizinne.${CMAKE_PROJECT_NAME}
     VERSION 1.0
@@ -21,6 +29,7 @@ qt_add_qml_module(${CMAKE_PROJECT_NAME}
         SOURCES shortcutmanager.h shortcutmanager.cpp
         QML_FILES SettingsDialog.qml
         QML_FILES CustomWindow.qml
+        QML_FILES ${QML_SINGLETONS}
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES

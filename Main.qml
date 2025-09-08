@@ -18,6 +18,12 @@ ApplicationWindow {
     Universal.theme: Universal.Dark
     Universal.accent: Universal.Purple
 
+    Component.onCompleted: {
+        if (UserSettings.channelName !== "" && UserSettings.token !== "") {
+            TwitchChatClient.connectToChannel(UserSettings.channelName, UserSettings.token)
+        }
+    }
+
     function showOverlay() {
         visible = true
         showAnimation.start()
@@ -112,6 +118,7 @@ ApplicationWindow {
         y: 0
         visible: true // Chat window is always visible
         closeEnabled: false
+        Component.onCompleted: showWindow()
 
         title: TwitchChatClient.connected ?
                "#" + TwitchChatClient.currentChannel + " Chat" :
@@ -124,7 +131,6 @@ ApplicationWindow {
         property real initialWidth
         property real initialHeight
 
-        Component.onCompleted: showWindow()
         content: ScrollView {
             anchors.fill: parent
             anchors.margins: 10
