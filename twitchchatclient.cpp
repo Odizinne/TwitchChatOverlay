@@ -188,22 +188,21 @@ void TwitchChatClient::parseIrcMessage(const QString& message)
 
 QString TwitchChatClient::getTwitchDefaultColor(const QString& username)
 {
-    // Twitch's actual default colors (in the correct order)
+    // Twitch's actual default colors (corrected based on reference)
     QStringList twitchColors = {
-        "#FF0000", "#0000FF", "#008000", "#B22222", "#FF7F50",
+        "#FF0000", "#0000FF", "#00FF00", "#B22222", "#FF7F50",
         "#9ACD32", "#FF4500", "#2E8B57", "#DAA520", "#D2691E",
         "#5F9EA0", "#1E90FF", "#FF69B4", "#8A2BE2", "#00FF7F"
     };
 
-    // Twitch uses a more sophisticated hash
+    // Use Twitch's actual algorithm: first char + last char
     QString lowerUsername = username.toLower();
-    uint32_t hash = 0;
-
-    for (int i = 0; i < lowerUsername.length(); i++) {
-        hash = lowerUsername.at(i).unicode() + (hash << 6) + (hash << 16) - hash;
+    if (lowerUsername.isEmpty()) {
+        return twitchColors[0]; // fallback to red
     }
 
-    return twitchColors[hash % twitchColors.size()];
+    uint32_t n = lowerUsername.at(0).unicode() + lowerUsername.at(lowerUsername.length() - 1).unicode();
+    return twitchColors[n % twitchColors.size()];
 }
 
 void TwitchChatClient::sendRawMessage(const QString& message)

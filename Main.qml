@@ -151,6 +151,7 @@ ApplicationWindow {
                         anchors.margins: 5
                         text: "<font color='" + model.color + "'><b>" + model.username + ":</b></font> " + model.message
                         color: "white"
+                        font.pixelSize: 15
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                     }
@@ -278,6 +279,16 @@ ApplicationWindow {
     SettingsDialog {
         id: settingsDialog
         parent: mainWindow.contentItem
+    }
+
+    SystemTray {
+        onToggleOverlay: {
+            if (mainWindow.visible) {
+                mainWindow.hideOverlay()
+            } else {
+                mainWindow.showOverlay()
+            }
+        }
     }
 
     Connections {

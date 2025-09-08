@@ -25,10 +25,11 @@ qt_add_qml_module(${CMAKE_PROJECT_NAME}
     VERSION 1.0
     QML_FILES
         Main.qml
+        SystemTray.qml
+        SettingsDialog.qml
+        CustomWindow.qml
         SOURCES twitchchatclient.h twitchchatclient.cpp
         SOURCES shortcutmanager.h shortcutmanager.cpp
-        QML_FILES SettingsDialog.qml
-        QML_FILES CustomWindow.qml
         QML_FILES ${QML_SINGLETONS}
 )
 
