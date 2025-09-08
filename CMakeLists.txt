@@ -18,6 +18,7 @@ qt_add_qml_module(${CMAKE_PROJECT_NAME}
     QML_FILES
         Main.qml
         SOURCES twitchchatclient.h twitchchatclient.cpp
+        SOURCES shortcutmanager.h shortcutmanager.cpp
         QML_FILES SettingsDialog.qml
         QML_FILES CustomWindow.qml
 )

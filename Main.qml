@@ -5,17 +5,65 @@ import Odizinne.TwitchChatOverlay
 
 ApplicationWindow {
     id: mainWindow
-    visible: true
+    visible: false
     title: "Twitch Chat Overlay"
-
+    width: Screen.width
+    height: Screen.height
     flags: Qt.WindowStaysOnTopHint |
            Qt.FramelessWindowHint
 
-    visibility: Window.FullScreen
+    //visibility: Window.FullScreen
     color: "transparent"
 
     Universal.theme: Universal.Dark
     Universal.accent: Universal.Purple
+
+    function showOverlay() {
+        visible = true
+        showAnimation.start()
+    }
+
+    // Hide overlay function
+    function hideOverlay() {
+        hideAnimation.start()
+    }
+
+    // Show animation
+    PropertyAnimation {
+        id: showAnimation
+        target: mainWindow
+        property: "opacity"
+        from: 0.0
+        to: 1.0
+        duration: 300
+        easing.type: Easing.OutQuad
+    }
+
+    // Hide animation
+    PropertyAnimation {
+        id: hideAnimation
+        target: mainWindow
+        property: "opacity"
+        from: 1.0
+        to: 0.0
+        duration: 300
+        easing.type: Easing.InQuad
+
+        onFinished: {
+            mainWindow.visible = false
+        }
+    }
+
+    Connections {
+        target: ShortcutManager
+        function onToggleOverlay() {
+            if (mainWindow.visible) {
+                hideOverlay()
+            } else {
+                showOverlay()
+            }
+        }
+    }
 
     header: ToolBar {
         height: 40
