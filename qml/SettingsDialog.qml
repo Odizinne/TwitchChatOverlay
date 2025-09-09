@@ -9,6 +9,8 @@ CustomWindow {
     height: mainLyt.implicitHeight + 30 + 35 + 2
     title: "Twitch Chat Settings"
 
+    color: "#0e0e10"
+    titleBarColor: "#18181b"
     content: ColumnLayout {
         id: mainLyt
         anchors.fill: parent

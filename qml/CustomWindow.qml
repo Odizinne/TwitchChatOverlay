@@ -36,10 +36,10 @@ Rectangle {
     function open() {
         showWindow()
         // Center in parent
-        if (parent) {
-            x = (parent.width - width) / 2
-            y = (parent.height - height) / 2
-        }
+        //if (parent) {
+        //    x = (parent.width - width) / 2
+        //    y = (parent.height - height) / 2
+        //}
     }
 
     function close() {

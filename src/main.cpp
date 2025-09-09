@@ -3,6 +3,7 @@
 
 int main(int argc, char *argv[])
 {
+    qputenv("QT_QUICK_BACKEND", "software");
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Odizinne");
     app.setApplicationName("TwitchChatOverlay");

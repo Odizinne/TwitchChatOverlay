@@ -32,6 +32,11 @@ ApplicationWindow {
         }
     }
 
+    BusyIndicator {
+        opacity: 0
+        running: true
+    }
+
     function showOverlay() {
         visible = true
         showAnimation.start()
@@ -92,7 +97,13 @@ ApplicationWindow {
                 text: "Settings"
                 Layout.preferredHeight: 40
                 font.pixelSize: 20
-                onClicked: settingsDialog.open()
+                onClicked: {
+                    if (settingsDialog.visible) {
+                        settingsDialog.close()
+                    } else {
+                        settingsDialog.open()
+                    }
+                }
             }
 
             Button {
@@ -296,6 +307,8 @@ ApplicationWindow {
     SettingsDialog {
         id: settingsDialog
         parent: mainWindow.contentItem
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
     }
 
     SystemTray {
