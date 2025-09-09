@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>cog.svg</file>
+        <file>cross.svg</file>
+        <file>icon.png</file>
+    </qresource>
+</RCC>

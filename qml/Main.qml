@@ -88,6 +88,7 @@ ApplicationWindow {
             }
 
             Button {
+                icon.source: "qrc:/icons/cog.svg"
                 text: "Settings"
                 Layout.preferredHeight: 40
                 font.pixelSize: 20
@@ -97,7 +98,7 @@ ApplicationWindow {
             Button {
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
-                text: "×"
+                icon.source: "qrc:/icons/cross.svg"
                 font.pixelSize: 20
                 onClicked: Qt.quit()
             }
@@ -127,6 +128,12 @@ ApplicationWindow {
         visible: true
         closeEnabled: false
         Component.onCompleted: showWindow()
+        border.color: Qt.rgba(Universal.color(Universal.Indigo).r,
+                              Universal.color(Universal.Indigo).g,
+                              Universal.color(Universal.Indigo).b,
+                              0.7)
+        color: "#0e0e10"
+        titleBarColor: "#18181b"
 
         title: TwitchChatClient.connected ?
                "#" + TwitchChatClient.currentChannel + " Chat" :
@@ -155,13 +162,12 @@ ApplicationWindow {
                     color: "transparent"
                     required property var model
 
-                    Text {
+                    Label {
                         id: messageText
                         anchors.fill: parent
                         anchors.margins: 5
                         text: "<font color='" + messageDel.model.color + "'><b>" + messageDel.model.username + ":</b></font> " + messageDel.model.message
-                        color: "white"
-                        font.pixelSize: 15
+                        font.pixelSize: UserSettings.chatTextSize
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                     }

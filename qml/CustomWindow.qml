@@ -15,6 +15,7 @@ Rectangle {
     color: "#CC000000"
     border.color: "#444444"
     border.width: 1
+    property color titleBarColor: "#55666666"
 
     // Animation properties
     scale: 0
@@ -102,7 +103,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 35
-        color: "#55666666"
+        color: customWindow.titleBarColor
+        anchors.margins: 1
 
         MouseArea {
             id: titleBarDrag
@@ -150,9 +152,9 @@ Rectangle {
             }
 
             Button {
-                Layout.preferredHeight: 25
-                Layout.preferredWidth: 25
-                text: "×"
+                Layout.preferredHeight: 24
+                Layout.preferredWidth: 24
+                icon.source: "qrc:/icons/cross.svg"
                 font.pixelSize: 12
                 visible: customWindow.closeEnabled
                 onClicked: customWindow.close()
