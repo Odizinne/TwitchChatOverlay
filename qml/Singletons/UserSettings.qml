@@ -10,4 +10,5 @@ Settings {
     property int windowWidth: 400
     property int windowHeight: 600
     property int chatTextSize: 15
+    property real overlayOpacity: 0.1
 }

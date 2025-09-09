@@ -106,5 +106,19 @@ CustomWindow {
                 onValueChanged: UserSettings.chatTextSize = value
             }
         }
+
+        RowLayout {
+            Label {
+                text: "Overlay opacity"
+                Layout.fillWidth: true
+            }
+
+            Slider {
+                from: 0.1
+                to: 1
+                value: UserSettings.overlayOpacity
+                onValueChanged: UserSettings.overlayOpacity = value
+            }
+        }
     }
 }

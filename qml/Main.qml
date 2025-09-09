@@ -115,7 +115,7 @@ ApplicationWindow {
     Rectangle {
         color: Universal.background
         anchors.fill: parent
-        opacity: 0.7
+        opacity: UserSettings.overlayOpacity
     }
 
     // Chat Window using CustomWindow
